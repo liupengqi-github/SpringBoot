@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xrd.znsbgl.dao.UploadimgDao">
+
+    <resultMap type="com.xrd.znsbgl.entity.Uploadimg" id="UploadimgMap">
+        <result property="id" column="Id" jdbcType="INTEGER"/>
+        <result property="imgbase" column="imgbase" jdbcType="VARCHAR"/>
+        <result property="imgurl" column="imgurl" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="UploadimgMap">
+        select
+          Id, imgbase, imgurl
+        from xrdznsbgl.uploadimg
+        where Id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="UploadimgMap">
+        select
+          Id, imgbase, imgurl
+        from xrdznsbgl.uploadimg
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="UploadimgMap">
+        select
+          Id, imgbase, imgurl
+        from xrdznsbgl.uploadimg
+        <where>
+            <if test="id != null">
+                and Id = #{id}
+            </if>
+            <if test="imgbase != null and imgbase != ''">
+                and imgbase = #{imgbase}
+            </if>
+            <if test="imgurl != null and imgurl != ''">
+                and imgurl = #{imgurl}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into xrdznsbgl.uploadimg(imgbase, imgurl)
+        values (#{imgbase}, #{imgurl})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update xrdznsbgl.uploadimg
+        <set>
+            <if test="imgbase != null and imgbase != ''">
+                imgbase = #{imgbase},
+            </if>
+            <if test="imgurl != null and imgurl != ''">
+                imgurl = #{imgurl},
+            </if>
+        </set>
+        where Id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from xrdznsbgl.uploadimg where Id = #{id}
+    </delete>
+
+</mapper>

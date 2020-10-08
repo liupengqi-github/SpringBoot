@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xrd.znsbgl.mapper.AdminMapper">
+
+    <select id="getAdminById" resultType="Admin">
+        select * from admin where id=#{id}
+    </select>
+
+    <select id="getAllAdmin" resultType="Admin">
+        select * from admin
+    </select>
+
+    <insert id="addAdmin" parameterType="Admin">
+        insert into admin (jobnumber,name,department,username,password,power,job) values
+        (#{jobnumber},#{name},#{department},#{username},#{password},#{power},#{job})
+    </insert>
+
+    <select id="getAdminByUsername" resultType="Admin">
+        select * from admin where username=#{username}
+    </select>
+</mapper>
